@@ -1,0 +1,11 @@
+.expo-shared/*
+.github/**/*
+node_modules/**/*
+
+package.json
+yarn.lock
+
+.gitignore
+.editorconfig
+
+*.md

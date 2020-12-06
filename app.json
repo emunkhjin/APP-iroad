@@ -1,0 +1,31 @@
+{
+	"expo": {
+		"name": "iRoad",
+		"slug": "iRoad-mon",
+		"privacy": "public",
+		"platforms": ["ios", "android"],
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/flame.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "cover",
+			"backgroundColor": "#F57C00"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.iroad.iroadreporter",
+			"buildNumber": "1.0.0"
+		},
+		"android": {
+			"useNextNotificationsApi": true,
+			"package": "host.exp.exponent",
+			"versionCode": 1
+			
+		}
+	}
+}
