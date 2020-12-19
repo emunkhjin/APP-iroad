@@ -101,9 +101,9 @@ export default function App() {
     onEndReachedCalledDuringMomentum = true;
   };
 
-  renderList = ({ text, photo, email, uid, cat, date, isNew }) => {
+  renderList = ({ text, photo, email, uid, cat, date, isNew, complete }) => {
     return (
-      <Card style={styles.item}>
+      <Card style={styles.item} status='warning'>
         <ImageOverlay style={styles.itemImage} source={{ uri: photo }}>
           <Text
             style={styles.itemTitle}
@@ -111,12 +111,18 @@ export default function App() {
             status="control"
             numberOfLines={1}
           >
-            {text}
+            {text} 
           </Text>
+          
           <Text style={styles.itemDescription} category="s1" status="control">
-            {cat}
+            {cat} {complete ? (
+                            <Text category='label' style={styles.text} status='success' >Шийдэгдсэн</Text>
+                          ) : (
+                            <Text category='label' style={styles.text} status='info' >Шийдэгдээгүй</Text>
+                          )}
           </Text>
           <View style={styles.itemFooter}>
+          
             <Icon
               style={styles.iconCard}
               fill="white"
@@ -196,6 +202,7 @@ const styles = StyleSheet.create({
   item: {
     marginVertical: 8,
     height: 220,
+    
   },
   itemImage: {
     ...StyleSheet.absoluteFillObject,
@@ -241,5 +248,8 @@ const styles = StyleSheet.create({
   },
   tab: {
     justifyContent: "center",
+  },
+  text: {
+    margin: 4,
   },
 });

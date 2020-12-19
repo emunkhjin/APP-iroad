@@ -78,6 +78,7 @@ export default class App extends React.Component {
 		latitude: '',
 		longtitude: '',
 		selectedOption: '',
+		selectedType: '',
 		focusedLocation: {
 			latitude: 47.92123,
 			longitude: 106.918556,
@@ -207,24 +208,35 @@ export default class App extends React.Component {
 						</Text>
 						<Divider />
 						<RNPickerSelect
+							placeholder={{ label: 'Төрөл сонгох' }}
+							style={pickerSelectStyles}
+							onValueChange={(value) =>
+								this.setState({ selectedType: value })
+							}
+							items={[
+								{
+									label: 'Авто зам',
+									value: 'Авто зам',
+								},
+								{
+									label: 'Авто замын гэрэлтүүлэг',
+									value: 'Авто замын гэрэлтүүлэг',
+								},
+								{
+									label: 'Явган зорчигчийн замын эвдрэл',
+									value: 'Явган зорчигчийн замын эвдрэл',
+								},
+							]}
+							useNativeAndroidPickerStyle={false}
+						/>
+						<Divider />
+						<RNPickerSelect
 							placeholder={{ label: 'Дүүрэг сонгох' }}
 							style={pickerSelectStyles}
 							onValueChange={(value) =>
 								this.setState({ selectedOption: value })
 							}
 							items={[
-								{
-									label: 'Багануур дүүрэг',
-									value: 'Багануур дүүрэг',
-								},
-								{
-									label: 'Багахангай дүүрэг',
-									value: 'Багахангай дүүрэг',
-								},
-								{
-									label: 'Налайх дүүрэг',
-									value: 'Налайх дүүрэг',
-								},
 								{
 									label: 'Баянзүрх дүүрэг',
 									value: 'Баянзүрх дүүрэг',
@@ -249,18 +261,32 @@ export default class App extends React.Component {
 									label: 'Сонгинохайрхан дүүрэг',
 									value: 'Сонгинохайрхан дүүрэг',
 								},
+								{
+									label: 'Багахангай дүүрэг',
+									value: 'Багахангай дүүрэг',
+								},
+								{
+									label: 'Налайх дүүрэг',
+									value: 'Налайх дүүрэг',
+								},
+								{
+									label: 'Багануур дүүрэг',
+									value: 'Багануур дүүрэг',
+								},
 							]}
 							useNativeAndroidPickerStyle={false}
 						/>
+
 						<Input
 							textStyle={{ minHeight: 64 }}
+							status="warning"
 							placeholder="Мэдээлэл энд дарж бичнэ үү"
 							style={{ margin: 20 }}
 							onChangeText={(text) => {
 								this.setState({ text });
 							}}
 							//onSubmitEditing={this._saveValue}
-							status="basic"
+
 							value={this.state.text}
 							style={styles.textInput}
 						/>
@@ -323,10 +349,21 @@ export default class App extends React.Component {
 								</Text>
 								<View style={styles.modalView}>
 									<View>
-										<Text style={styles.text} category="h6">
+										{/* <Text style={styles.text} category="h6">
 											Байршил сонгох хэсэг
-										</Text>
-
+										</Text> */}
+										<Button
+											style={{
+												alignSelf: 'stretch',
+												height: 70,
+											}}
+											appearance="outline"
+											status="info"
+											accessoryLeft={PinIcon}
+											onPress={this.getLocationHandler}
+										>
+											Миний байршлийг сонгох
+										</Button>
 										<Divider />
 										<MapView
 											mapType="hybrid"
@@ -344,15 +381,6 @@ export default class App extends React.Component {
 										>
 											{marker}
 										</MapView>
-										<View style={styles.button}>
-											<Button
-												onPress={
-													this.getLocationHandler
-												}
-											>
-												Миний байршлийг сонгох
-											</Button>
-										</View>
 									</View>
 									<TouchableHighlight
 										style={{
@@ -364,7 +392,7 @@ export default class App extends React.Component {
 										}}
 									>
 										<Text style={styles.textStyle}>
-											ХААХ
+											Гарах
 										</Text>
 									</TouchableHighlight>
 								</View>
@@ -415,7 +443,7 @@ export default class App extends React.Component {
 				>
 					<ActivityIndicator color="#fff" animating size="small" />
 
-					<Text style={styles.textStyle}>Зурагийг хуулж байна</Text>
+					<Text style={styles.textStyle}>Зургийг хуулж байна</Text>
 				</View>
 			);
 		}
@@ -447,6 +475,7 @@ export default class App extends React.Component {
 				latitude: this.state.focusedLocation.latitude,
 				longtitude: this.state.focusedLocation.longitude,
 				cat: this.state.selectedOption.toString(),
+				type: this.state.selectedType.toString(),
 			});
 
 			//return navigation.navigate("Home");
