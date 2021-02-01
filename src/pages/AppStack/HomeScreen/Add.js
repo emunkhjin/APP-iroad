@@ -102,6 +102,7 @@ export default class App extends React.Component {
 			latitude: coords.latitude,
 			longitude: coords.longitude,
 		});
+
 		this.setState((prevState) => {
 			return {
 				focusedLocation: {
@@ -113,6 +114,7 @@ export default class App extends React.Component {
 			};
 		});
 		console.log(this.state.focusedLocation);
+		console.log(this.state.bairshilNer);
 	};
 	getLocationHandler = () => {
 		navigator.geolocation.getCurrentPosition(
@@ -176,6 +178,27 @@ export default class App extends React.Component {
 		if (this.state.locationChosen) {
 			marker = <MapView.Marker coordinate={this.state.focusedLocation} />;
 		}
+		// (async () => {
+		// 	const result = await fetch(
+		// 		'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
+		// 			this.state.focusedLocation.latitude +
+		// 			',' +
+		// 			this.state.focusedLocation.longitude +
+		// 			'&key=' +
+		// 			'AIzaSyAu3PxWHAQrm55DnoqcZI0tUxPHzZLG4GM'
+		// 	);
+
+		// 	let address;
+		// 	if (result.ok) {
+		// 		const data = await result.json();
+		// 		address = data.results[0].formatted_address;
+
+		// 		this.setState({ bairshilNer: address });
+		// 	} else {
+		// 		address = 'Хаягийг авч чадсангүй';
+		// 	}
+		// })();
+
 		return (
 			//<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 			<SafeAreaView style={styles.container}>
@@ -364,6 +387,7 @@ export default class App extends React.Component {
 										>
 											Миний байршлийг сонгох
 										</Button>
+										<Text>{this.state.bairshilNer}</Text>
 										<Divider />
 										<MapView
 											mapType="hybrid"
@@ -470,7 +494,7 @@ export default class App extends React.Component {
 				date: new Date(),
 				uid: username,
 				email: userEmail,
-				bairshil: this.state.location,
+				bairshil: this.state.bairshilNer,
 				complete: false,
 				latitude: this.state.focusedLocation.latitude,
 				longtitude: this.state.focusedLocation.longitude,
